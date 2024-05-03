@@ -31,7 +31,7 @@ points1 = (
     .encode(
         alt.X("NOTA",title="Nota IMDB"),
         alt.Y("VOTOS",title="Votos IMDB"),
-        color=alt.condition(brush, color, alt.value("lightgray")),
+        color=alt.condition(brush, color1, alt.value("lightgray")),
         size="QTD_PUBLICO",
         tooltip=["TITULO","PAIS_OBRA"],
     )
@@ -46,7 +46,7 @@ bars1 = (
     .encode(
         x="count()",
         y="PAIS_OBRA:N",
-        color=alt.condition(click, color, alt.value("lightgray")),
+        color=alt.condition(click, color1, alt.value("lightgray")),
     )
     .transform_filter(brush)
     .add_selection(click)
@@ -60,7 +60,7 @@ points2 = (
     .encode(
         alt.X("NOTA",title="Nota IMDB"),
         alt.Y("VOTOS",title="Votos IMDB"),
-        color=alt.condition(brush, color, alt.value("lightgray")),
+        color=alt.condition(brush, color2, alt.value("lightgray")),
         size="QTD_PUBLICO",
         tooltip=["TITULO","PAIS_OBRA"],
     )
@@ -75,7 +75,7 @@ bars2 = (
     .encode(
         x="count()",
         y="PAIS_OBRA:N",
-        color=alt.condition(click, color, alt.value("lightgray")),
+        color=alt.condition(click, color2, alt.value("lightgray")),
     )
     .transform_filter(brush)
     .add_selection(click)
