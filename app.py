@@ -86,6 +86,6 @@ chart2 = alt.vconcat(points2,bars2,data=df, title="Filmes por Gênero Roterista"
 tab1, tab2 = st.tabs(["Gênero Diretor", "Gênero Roterista"])
 
 with tab1:
-    st.altair_chart1(chart,theme="streamlit", use_container_width=True)
+    st.altair_chart(chart1,theme="streamlit", use_container_width=True)
 with tab2:
-    st.altair_chart2(chart,theme="streamlit", use_container_width=True)
+    st.altair_chart(chart2,theme="streamlit", use_container_width=True)
