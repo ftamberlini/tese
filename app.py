@@ -10,7 +10,7 @@ st.set_page_config(
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("filmes.csv",converters={'TITULO':str},separator=";;")
+    df = pd.read_csv("filmes.csv",converters={'TITULO':str},sep=";;")
     return df
 
 df = load_data()
