@@ -20,11 +20,12 @@ scale = alt.Scale(
     domain = ["M","F"],
     range=["#0066ff","#ff99cc"]
 )
-color = alt.Color("DIRETOR_GENERO:N",scale=scale)
+color1 = alt.Color("DIRETOR_GENERO:N",scale=scale)
+color2 = alt.Color("ROTERISTA_GENERO:N",scale=scale)
 brush = alt.selection_interval(encodings=["x"])
 click = alt.selection_multi(encodings=["color"])
 
-points = (
+points1 = (
     alt.Chart(df)
     .mark_point()
     .encode(
@@ -39,7 +40,7 @@ points = (
     .transform_filter(click)
 )
 
-bars = (
+bars1 = (
     alt.Chart()
     .mark_bar()
     .encode(
@@ -50,11 +51,41 @@ bars = (
     .transform_filter(brush)
     .add_selection(click)
     )
-chart = alt.vconcat(points,bars,data=df, title="Filmes por Gênero de Diretor")
+chart1 = alt.vconcat(points1,bars1,data=df, title="Filmes por Gênero Diretor")
 
-tab1, tab2 = st.tabs(["Modelo 1", "Modelo 2"])
+
+points2 = (
+    alt.Chart(df)
+    .mark_point()
+    .encode(
+        alt.X("NOTA",title="Nota IMDB"),
+        alt.Y("VOTOS",title="Votos IMDB"),
+        color=alt.condition(brush, color, alt.value("lightgray")),
+        size="QTD_PUBLICO",
+        tooltip=["TITULO","PAIS_OBRA"],
+    )
+    .properties(width=550,height=300)
+    .add_selection(brush)
+    .transform_filter(click)
+)
+
+bars2 = (
+    alt.Chart()
+    .mark_bar()
+    .encode(
+        x="count()",
+        y="PAIS_OBRA:N",
+        color=alt.condition(click, color, alt.value("lightgray")),
+    )
+    .transform_filter(brush)
+    .add_selection(click)
+    )
+
+chart2 = alt.vconcat(points2,bars2,data=df, title="Filmes por Gênero Roterista")
+
+tab1, tab2 = st.tabs(["Gênero Diretor", "Gênero Roterista"])
 
 with tab1:
-    st.altair_chart(chart,theme="streamlit", use_container_width=True)
+    st.altair_chart1(chart,theme="streamlit", use_container_width=True)
 with tab2:
-    st.altair_chart(chart,theme=None, use_container_width=True)
+    st.altair_chart2(chart,theme="streamlit", use_container_width=True)
