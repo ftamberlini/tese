@@ -8,6 +8,8 @@ st.set_page_config(
     page_title = "Dados de Filmes x Gênero"
 )
 
+st.markdown("# Dados de Filmes por Gênero")
+
 @st.cache_data
 def load_data():
     df = pd.read_csv("filmes.csv",converters={'TITULO':str},sep=";;")
@@ -84,7 +86,6 @@ bars2 = (
 chart2 = alt.vconcat(points2,bars2,data=df, title="Filmes por Gênero Roterista")
 
 tab1, tab2 = st.tabs(["Gênero Diretor", "Gênero Roterista"])
-st.markdown("# Dados de Filmes por Gênero")
 with tab1:
     st.altair_chart(chart1,theme="streamlit", use_container_width=True)
 with tab2:
